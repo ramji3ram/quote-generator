@@ -1,0 +1,112 @@
+<html>
+<head>
+	<title>
+		'Quote gen'	
+	</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+<script  src="js/jquery-2.1.4.min.js"></script>
+<script  src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<H2>
+	Quote generator page
+</H2>
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Quote Of the Day</h4>
+        </div>
+        <div id="para" class="modal-body clicks">
+          
+        </div>
+        <div class="modal-footer">
+ 
+        <i class="fa fa-twitter butclick" style="position:relative;right:400px;" aria-hidden="true"> twitter</i>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<button class="btn btn-default"  id="genquote" type="submit">
+Quote generator	
+</button>
+<script type="text/javascript">
+var t,text1;
+
+  function newQuote()
+     {
+        $('#myModal').modal('show');
+
+//              var rand=Math.floor(Math.random());
+//              $("#para").html("<p>"+Quotes[rand]+"<p>");
+
+
+             t=    $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?", function(a) {
+  $("#para").html("<p>"+a.quoteText+"</p>" + "<p>— " + a.quoteAuthor + "</p>")
+});
+
+//    $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + a.quoteText)
+ $(".butclick").click(function click1()
+ {
+  var tweetcount=$("#para").html();
+tweetcount=$(tweetcount).text();
+if(tweetcount.length >140 )
+{
+  alert("Tweet should be less than 140 chararcters");
+}
+else
+{
+  var twtlink= 'https://twitter.com/home/?status=' + encodeURIComponent(tweetcount) + '&via=@ramGg2406';
+  window.open(twtlink);
+}
+   }   );
+
+
+
+
+    }
+
+$(document).ready(function(){
+
+$.ajaxSetup({cache:false});
+$("#genquote").click(function(){
+  newQuote();
+
+});
+
+
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+
+ }) ;
+
+  
+</script>
+</body>
+</html>
