@@ -30,8 +30,8 @@
           
         </div>
         <div class="modal-footer">
- 
-        <i class="fa fa-twitter butclick" style="position:relative;right:400px;" aria-hidden="true"> twitter</i>
+
+        <i class="fa fa-twitter fa-3x twt-btn butclick" data-toggle="tooltip" title="Tweet" style="position:relative;right:400px; " aria-hidden="true"></i>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -51,17 +51,21 @@ var t,text1;
 //              var rand=Math.floor(Math.random());
 //              $("#para").html("<p>"+Quotes[rand]+"<p>");
 
-
+$("#para").html("<p>LOADING<p>");
              t=    $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?", function(a) {
   $("#para").html("<p>"+a.quoteText+"</p>" + "<p>— " + a.quoteAuthor + "</p>")
 });
 
 //    $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + a.quoteText)
+
+
+
  $(".butclick").click(function click1()
  {
-  var tweetcount=$("#para").html();
+    var tweetcount=$("#para").html();
 tweetcount=$(tweetcount).text();
-if(tweetcount.length >140 )
+
+if(tweetcount.length > 140 )
 {
   alert("Tweet should be less than 140 chararcters");
 }
