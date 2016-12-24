@@ -31,7 +31,7 @@
         </div>
         <div class="modal-footer">
 
-        <i class="fa fa-twitter fa-3x twt-btn butclick" data-toggle="tooltip" title="Tweet" style="position:relative;right:400px; " aria-hidden="true"></i>
+        <i class="fa fa-twitter-square fa-3x twt-btn butclick" data-toggle="tooltip" title="Tweet" style="position:relative;right:400px; " aria-hidden="true"></i>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -53,18 +53,40 @@ var t,text1;
 
 $("#para").html("<p>LOADING<p>");
              t=    $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?", function(a) {
-  $("#para").html("<p>"+a.quoteText+"</p>" + "<p>— " + a.quoteAuthor + "</p>")
-});
 
+if(a.quoteAuthor=="")
+{
+  a.quoteAuthor=="Anonymous";
+}
+
+  $("#para").html("<p>"+a.quoteText+"</p>" + "<p>— " + a.quoteAuthor + "</p>");
+});
+             
 //    $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + a.quoteText)
 
 
 
- $(".butclick").click(function click1()
+
+
+
+    }
+
+$(document).ready(function(){
+
+
+
+
+$.ajaxSetup({cache:false});
+$("#genquote").click(function(){
+  newQuote();
+
+
+
+ $(".butclick").click(function ()
  {
+
     var tweetcount=$("#para").html();
 tweetcount=$(tweetcount).text();
-
 if(tweetcount.length > 140 )
 {
   alert("Tweet should be less than 140 chararcters");
@@ -78,35 +100,7 @@ else
 
 
 
-
-    }
-
-$(document).ready(function(){
-
-$.ajaxSetup({cache:false});
-$("#genquote").click(function(){
-  newQuote();
-
 });
-
-
-window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
-
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-
-  return t;
-}(document, "script", "twitter-wjs"));
-
 
  }) ;
 
